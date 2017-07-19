@@ -6,9 +6,7 @@ option go_package = "service";
 
 service myService {
   rpc AddPerson(Person) returns (Replay){}
-
-  //rpc ListNames(Empty) returns (ListReplay){}
-  
+  rpc ListPeople(Empty) returns (ListReplay){}
 }
 
 message Empty{}
@@ -22,5 +20,5 @@ message Replay {
 }
 
 message ListReplay {
-    repeated Person person = 1;
+    repeated Person people = 1;
 }
