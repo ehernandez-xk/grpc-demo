@@ -1,4 +1,4 @@
-.PHONY: build build-image build-lx push run
+.PHONY: build build-lx build-image push clean run
 
 build: build-lx build-image
 

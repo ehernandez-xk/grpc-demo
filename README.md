@@ -11,3 +11,8 @@ Run the go client
 ## Running inside containers
 
 See Makefile files inside the server and clients
+
+## Tools
+
+- [GRPC](https://grpc.io/)
+- [Protocol Buffers](https://developers.google.com/protocol-buffers)
