@@ -12,7 +12,14 @@ Run the go client
 
 See Makefile files inside the server and clients
 
-## Tools
+## Technologies
 
 - [GRPC](https://grpc.io/)
 - [Protocol Buffers](https://developers.google.com/protocol-buffers)
+
+### Other technologies covered
+
+- [Go](https://golang.org/)
+- [Docker](https://www.docker.com/)
+- [Node](https://nodejs.org)
+- [bolt](https://github.com/boltdb/bolt) key/value db store
