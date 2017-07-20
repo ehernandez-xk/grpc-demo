@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 
 	pb "github.com/ehernandez-xk/grpc-demo/service"
@@ -22,7 +23,7 @@ func main() {
 	flag.Parse()
 
 	address := *target + ":" + port
-	log.Println(address)
+	fmt.Println(address)
 
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
@@ -38,14 +39,17 @@ func main() {
 		if err != nil {
 			log.Fatalf("Could not add name %v", err)
 		}
-		log.Printf("rpc - AddPerson replay: %v", r.Status)
+		fmt.Printf("rpc - AddPerson replay: %v\n", r.Status)
 	}
 	if *option == "list" {
 		r, err := c.ListPeople(context.Background(), &pb.Empty{})
 		if err != nil {
-			log.Fatalf("Could not list persons")
+			log.Fatalf("Could not list people")
 		}
-		log.Printf("grpc - ListPerson replay %v", r.People)
+		fmt.Println("People in the database")
+		for i, person := range r.People {
+			fmt.Printf("%v <-- %s\n", i, person.Name)
+		}
 	}
 
 }
