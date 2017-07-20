@@ -21,8 +21,9 @@ func main() {
 	option := flag.String("option", "list", "Option of the rpc (list of add)")
 	flag.Parse()
 
-	log.Println(*target, *name)
 	address := *target + ":" + port
+	log.Println(address)
+
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect %v", err)
@@ -37,14 +38,14 @@ func main() {
 		if err != nil {
 			log.Fatalf("Could not add name %v", err)
 		}
-		log.Printf("AddPerson replay: %v", r.Status)
+		log.Printf("rpc - AddPerson replay: %v", r.Status)
 	}
 	if *option == "list" {
 		r, err := c.ListPeople(context.Background(), &pb.Empty{})
 		if err != nil {
 			log.Fatalf("Could not list persons")
 		}
-		log.Printf("ListPerson replay %v", r.People)
+		log.Printf("grpc - ListPerson replay %v", r.People)
 	}
 
 }
