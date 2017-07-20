@@ -1,4 +1,7 @@
-.PHONY: compile compile-go compile-java
+.PHONY: setup compile compile-go compile-java
+
+setup:
+	go get -u github.com/golang/protobuf/protoc-gen-go
 
 compile: compile-go compile-java
 
