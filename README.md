@@ -7,3 +7,7 @@ Run the server
 Run the go client
 
 `go run goClient/main.go`
+
+## Running inside containers
+
+See Makefile files inside the server and clients
