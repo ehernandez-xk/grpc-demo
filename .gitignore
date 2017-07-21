@@ -1,3 +1,5 @@
 #binaries
 goClient/goclient
 server/goserver
+nodeClient/node_modules
+nodeClient/package-lock.json
