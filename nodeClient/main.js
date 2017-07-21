@@ -1,13 +1,15 @@
 const grpc = require('grpc');
 const argv = require('minimist')(process.argv.slice(2));
 
-const PROTO_PATH = __dirname + '/../service/service.proto';
+const PROTO_PATH = __dirname + '/service.proto';
 const pb = grpc.load(PROTO_PATH);
 
-var client = new pb.service.myService('10.4.4.118:50051', grpc.credentials.createInsecure());
+var client;
 var person = {
     name: ''
 };
+
+const port = ':50051';
 
 function addPerson(name) {
     if (!name) {
@@ -35,14 +37,13 @@ function listPeople() {
 }
 
 function main() {
-    if (argv.option) {
-        if (argv.option === 'add') {
-            addPerson(argv.name);
-        }
+    var target = argv.target || '127.0.0.1';
+    client = new pb.service.myService(target + port, grpc.credentials.createInsecure());
 
-        if (argv.option === 'list') {
-            listPeople();
-        }
+    if (argv.option && argv.option === 'add') {
+        addPerson(argv.name);
+    } else {
+        listPeople();
     }
 }
 
