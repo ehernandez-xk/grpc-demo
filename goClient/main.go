@@ -6,6 +6,7 @@ import (
 	"log"
 
 	pb "github.com/ehernandez-xk/grpc-demo/service"
+	"github.com/icrowley/fake"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
@@ -34,13 +35,14 @@ func main() {
 	c := pb.NewMyServiceClient(conn)
 
 	if *option == "add" {
-		// Add a person
+		// Add option adds a person
 		r, err := c.AddPerson(context.Background(), &pb.Person{Name: *name})
 		if err != nil {
 			log.Fatalf("Could not add name %v", err)
 		}
 		fmt.Printf("rpc - AddPerson replay: %v\n", r.Status)
 	}
+	// List option lists people in the db
 	if *option == "list" {
 		r, err := c.ListPeople(context.Background(), &pb.Empty{})
 		if err != nil {
@@ -50,6 +52,16 @@ func main() {
 		for i, person := range r.People {
 			fmt.Printf("%v <-- %s\n", i, person.Name)
 		}
+	}
+	// Fake option adds 1000 fake names
+	if *option == "fake" {
+		for i := 0; i < 1000; i++ {
+			_, err := c.AddPerson(context.Background(), &pb.Person{Name: fake.FullName()})
+			if err != nil {
+				log.Fatalf("Could not add name %v", err)
+			}
+		}
+		fmt.Println("Done fake")
 	}
 
 }
