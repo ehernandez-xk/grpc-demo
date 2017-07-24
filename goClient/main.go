@@ -20,7 +20,7 @@ func main() {
 	//flags
 	target := flag.String("target", "localhost", "target to connect")
 	name := flag.String("name", "no-name", "Your name")
-	option := flag.String("option", "list", "Option of the rpc (list of add)")
+	option := flag.String("option", "list", "Option of the rpc (add, list or fake)")
 	flag.Parse()
 
 	address := *target + ":" + port
@@ -34,8 +34,8 @@ func main() {
 
 	c := pb.NewMyServiceClient(conn)
 
+	// Add option adds a person
 	if *option == "add" {
-		// Add option adds a person
 		r, err := c.AddPerson(context.Background(), &pb.Person{Name: *name})
 		if err != nil {
 			log.Fatalf("Could not add name %v", err)
@@ -63,5 +63,4 @@ func main() {
 		}
 		fmt.Println("Done fake")
 	}
-
 }
